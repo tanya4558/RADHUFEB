@@ -116,3 +116,8 @@ h1 { color: var(--ink); font-size: clamp(52px, 6vw, 88px); line-height: .96; mar
   .hero-visual { height: 300px; }
   .sun-stamp { height: 78px; width: 78px; top: 18px; left: 18px; }
 }
+
+.product-buy .product-enquire { background: transparent; border-bottom: 1px solid var(--ink); color: var(--ink); display: inline-flex; font-size: 11px; font-weight: 700; gap: 5px; padding: 8px 0; }
+.product-buy .product-enquire:hover { border-color: var(--rust); color: var(--rust); }
+.contact-phone { color: var(--ink); display: inline-block; font-size: 13px; font-weight: 700; margin-top: 21px; }
+.contact-phone:hover, .email-link:hover { color: var(--rust); }

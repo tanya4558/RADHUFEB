@@ -1,5 +1,6 @@
 // Rudra storefront - no-build React using local UMD React (React.createElement, no JSX)
-const { useState, createElement: h } = React
+const { createElement: h } = React
+const whatsappNumber = '919909252400'
 
 const products = [
   { id: 'five-kg', name: 'RADHUFEB™ Natural Soil Care', size: '5 kg pack', price: 'Contact for price', image: './Image.jpg', note: 'Easy to handle for home gardens' },
@@ -8,12 +9,16 @@ const products = [
 
 function br() { return h('br') }
 
+function whatsappUrl(product) {
+  const message = `Hello RADHUFEB, I would like to enquire about ${product.name} - ${product.size}. Please share availability and price.`
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
+}
+
 function App() {
-  const [activeProduct, setActiveProduct] = useState(null)
   const scrollToShop = () => { const el = document.getElementById('shop'); if (el) el.scrollIntoView({ behavior: 'smooth' }) }
 
   return h('div', { className: 'site-shell' },
-    h('div', { className: 'announcement' }, 'Natural soil care from Surat ', h('span', null, '•'), ' Enquiries handled privately'),
+    h('div', { className: 'announcement' }, 'Natural soil care from Surat ', h('span', null, '•'), ' WhatsApp enquiries welcome'),
     h('header', { className: 'site-header' },
       h('a', { className: 'brand', href: '#top', 'aria-label': 'RADHUFEB trademark home' },
         h('span', { className: 'brand-mark' }, 'R'),
@@ -62,7 +67,7 @@ function App() {
               h('div', null, h('p', { className: 'product-kicker' }, 'RADHUFEB™ / SOIL CARE'), h('h3', null, product.size), h('p', { className: 'product-note' }, product.note)),
               h('div', { className: 'product-buy' },
                 h('strong', null, product.price),
-                h('button', { 'aria-label': `Enquire about ${product.size}`, onClick: () => setActiveProduct(product) }, 'Enquire ', h('span', null, '↗')),
+                h('a', { className: 'product-enquire', href: whatsappUrl(product), target: '_blank', rel: 'noreferrer', 'aria-label': `Enquire about ${product.size} on WhatsApp` }, 'Enquire ', h('span', null, '↗')),
               ),
             ),
           )),
@@ -86,22 +91,17 @@ function App() {
       h('section', { className: 'contact-section', id: 'contact' },
         h('div', null, h('p', { className: 'eyebrow' }, 'Come say hello'), h('h2', null, 'Ready to grow', br(), h('em', null, 'something good?'))),
         h('div', { className: 'contact-details' },
-          h('p', null, 'For order and availability enquiries, contact details are shared privately and are not collected on this page.'),
+          h('p', null, 'For orders, availability and product questions, contact RADHUFEB directly.'),
+          h('a', { className: 'whatsapp-link', href: `https://wa.me/${whatsappNumber}`, target: '_blank', rel: 'noreferrer' }, 'Message on WhatsApp ', h('span', null, '↗')),
+          h('a', { className: 'contact-phone', href: 'tel:+919909252400' }, '9909252400'),
+          h('p', { className: 'contact-line' }, 'Sy No. 258, Lasa Compound, near Full Market,', br(), 'Umiyadham, Katargam, Surat 395008'),
+          h('a', { className: 'email-link', href: 'mailto:rgabani515@gmail.com' }, 'rgabani515@gmail.com'),
         ),
       ),
     ),
     h('footer', { className: 'site-footer' },
       h('div', { className: 'footer-brand' }, h('span', { className: 'brand-mark' }, 'R'), h('span', null, h('strong', null, 'RADHUFEB™'), h('small', null, 'Natural essentials'))),
       h('div', { className: 'footer-meta' }, h('span', null, '© 2026 RADHUFEB™')),
-    ),
-    activeProduct && h('div', { className: 'modal-backdrop', role: 'presentation', onClick: () => setActiveProduct(null) },
-      h('div', { className: 'modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'modal-title', onClick: (e) => e.stopPropagation() },
-        h('button', { className: 'modal-close', 'aria-label': 'Close', onClick: () => setActiveProduct(null) }, '×'),
-        h('p', { className: 'eyebrow' }, 'RADHUFEB™ product enquiry'),
-        h('h2', { id: 'modal-title' }, activeProduct.size),
-        h('p', null, 'Contact details are not published here, and this page does not collect or send enquiry information.'),
-        h('button', { className: 'button button-dark', onClick: () => setActiveProduct(null) }, 'Close'),
-      ),
     ),
   )
 }
